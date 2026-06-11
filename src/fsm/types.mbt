@@ -1,9 +1,13 @@
+/// A guard function that determines if a transition is allowed.
+pub type Guard[S, E] (S, E) -> Bool
+
 /// A transition definition specifying the source state, the event that triggers it,
 /// and the target state it transitions to.
 pub(all) struct Transition[S, E] {
   from : S
   to : S
   event : E
+  guard_cond : Guard[S, E]?
 }
 
 /// A callback function that executes during a state lifecycle hook.
@@ -19,6 +23,7 @@ pub(all) struct MachineConfig[S, E] {
 /// The runtime instance of the Finite State Machine.
 pub(all) struct Machine[S, E] {
   transitions : Map[S, Map[E, S]]
+  guards : Map[S, Map[E, Guard[S, E]]]
   on_enter : Map[S, Callback[S, E]]
   on_exit : Map[S, Callback[S, E]]
   mut current_state : S
