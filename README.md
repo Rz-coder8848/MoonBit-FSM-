@@ -1,33 +1,17 @@
-# MoonBit FSM
+# MoonBit Extended FSM
 
-A lightweight, type-safe Finite State Machine (FSM) core engine tailored for the MoonBit ecosystem. It provides an elegant Builder API to declaratively configure states, events, transitions, and lifecycle callbacks.
+An Enterprise-grade Extended Finite State Machine (FSM) engine for the MoonBit ecosystem. It supports states, events, transition guards, lifecycle callbacks, context mutations, and static dead-end validation.
 
 ## Features
-- **Type-safe Builder API**: Construct state machines safely using MoonBit's robust type system.
-- **Entry & Exit Callbacks**: Register code to run seamlessly as your states transition.
-- **Guard Conditions**: Conditionally block or allow transitions based on runtime state.
-- **Zero Dependencies**: 100% written in pure MoonBit, fully ready for high-performance WebAssembly compilation.
-
-## Installation
-
-```sh
-moon add Rz-coder8848/moon-fsm
-```
+- **Extended State (Context)**: Bind generic business data directly into your state machine.
+- **Static Validator**: Automatically detect unreachable or orphaned states via internal graph traversal.
+- **Zero Dependencies**: 100% pure MoonBit, fully Wasm ready.
 
 ## Quick Start
-
 ```moonbit
-let builder : @fsm.Builder[String, String] = @fsm.Builder::new()
+let builder : @fsm.Builder[String, String, Int] = @fsm.Builder::new()
   .transition(from="Idle", event="Start", to="Running")
-  .transition(from="Running", event="Stop", to="Stopped")
-  .on_enter("Running", fn(state, event) {
-    println("Entered \{state} via \{event}")
-  })
+  .transition_if(from="Running", event="Stop", to="Idle", guard_cond=fn(_s, _e, ctx) { ctx > 0 })
 
-let machine = builder.build("Idle")
-
-match machine.send("Start") {
-  Ok(_) => println("Successfully transitioned to \{machine.state()}")
-  Err(e) => println("Error: \{e}")
-}
+let engine = builder.build("Idle", 100)
 ```
