@@ -32,4 +32,28 @@ pub fn on_exit[S : Hash + Eq, E](self : Builder[S, E], state : S, callback : Cal
   self
 }
 
+/// Builds the FSM runtime instance starting at the given state.
+pub fn build[S : Hash + Eq, E : Hash + Eq](self : Builder[S, E], initial_state : S) -> Machine[S, E] {
+  let transitions = Map::new()
+  for t in self.config.transitions {
+    let state_map = match transitions.get(t.from) {
+      Some(m) => m
+      None => {
+        let m = Map::new()
+        transitions.set(t.from, m)
+        m
+      }
+    }
+    state_map.set(t.event, t.to)
+  }
+  
+  {
+    transitions,
+    on_enter: self.config.on_enter,
+    on_exit: self.config.on_exit,
+    current_state: initial_state,
+  }
+}
+
+
 
