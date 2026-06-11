@@ -13,3 +13,10 @@ pub fn Builder::new[S, E]() -> Builder[S, E] {
     }
   }
 }
+
+/// Adds a transition from a specific state to another triggered by an event.
+pub fn transition[S, E](self : Builder[S, E], from : S, event : E, to : S) -> Builder[S, E] {
+  self.config.transitions.push({ from, to, event })
+  self
+}
+
