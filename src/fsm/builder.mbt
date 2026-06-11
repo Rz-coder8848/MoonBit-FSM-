@@ -20,3 +20,16 @@ pub fn transition[S, E](self : Builder[S, E], from : S, event : E, to : S) -> Bu
   self
 }
 
+/// Registers a callback to be executed when entering a specific state.
+pub fn on_enter[S : Hash + Eq, E](self : Builder[S, E], state : S, callback : Callback[S, E]) -> Builder[S, E] {
+  self.config.on_enter.set(state, callback)
+  self
+}
+
+/// Registers a callback to be executed when exiting a specific state.
+pub fn on_exit[S : Hash + Eq, E](self : Builder[S, E], state : S, callback : Callback[S, E]) -> Builder[S, E] {
+  self.config.on_exit.set(state, callback)
+  self
+}
+
+
