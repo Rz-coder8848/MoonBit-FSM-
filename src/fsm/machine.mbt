@@ -12,6 +12,21 @@ pub fn send[S : Hash + Eq, E : Hash + Eq](self : Machine[S, E], event : E) -> Re
       match state_map.get(event) {
         None => Err("Event not handled in current state")
         Some(next_state) => {
+          // Check guard condition if exists
+          let allowed = match self.guards.get(current) {
+            Some(evt_guards) => {
+              match evt_guards.get(event) {
+                Some(guard_cond) => guard_cond(current, event)
+                None => true
+              }
+            }
+            None => true
+          }
+          
+          if not(allowed) {
+            return Err("Transition blocked by guard condition")
+          }
+
           // Execute on_exit for current state
           match self.on_exit.get(current) {
             Some(cb) => cb(current, event)
