@@ -1,15 +1,15 @@
 /// Retrieves the current state of the engine.
-pub fn state[S, E, Ctx](self : Engine[S, E, Ctx]) -> S {
+pub fn[S, E, Ctx] Engine::state(self : Engine[S, E, Ctx]) -> S {
   self.current_state
 }
 
 /// Retrieves the current context of the engine.
-pub fn context[S, E, Ctx](self : Engine[S, E, Ctx]) -> Ctx {
+pub fn[S, E, Ctx] Engine::context(self : Engine[S, E, Ctx]) -> Ctx {
   self.context
 }
 
 /// Sends an event to the state machine engine to trigger a transition.
-pub fn send[S : Hash + Eq, E : Hash + Eq, Ctx](self : Engine[S, E, Ctx], event : E) -> Result[Unit, String] {
+pub fn[S : Hash + Eq, E : Hash + Eq, Ctx] Engine::send(self : Engine[S, E, Ctx], event : E) -> Result[Unit, String] {
   let current = self.current_state
   match self.transitions.get(current) {
     None => Err("No transitions defined for current state")
@@ -28,7 +28,7 @@ pub fn send[S : Hash + Eq, E : Hash + Eq, Ctx](self : Engine[S, E, Ctx], event :
             None => true
           }
           
-          if not(allowed) {
+          if !allowed {
             return Err("Transition blocked by guard condition")
           }
 

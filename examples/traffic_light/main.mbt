@@ -2,16 +2,16 @@ fn main {
   println("--- Traffic Light Example ---")
   
   let builder : @fsm.Builder[String, String, Unit] = @fsm.Builder::new()
-    .transition(from="Red", event="Timer", to="Green")
-    .transition(from="Green", event="Timer", to="Yellow")
-    .transition(from="Yellow", event="Timer", to="Red")
-    .transition(from="Red", event="PowerOutage", to="Off")
-    .transition(from="Green", event="PowerOutage", to="Off")
-    .transition(from="Yellow", event="PowerOutage", to="Off")
-    .transition(from="Off", event="PowerRestore", to="Red")
+    .transition("Red", "Timer", "Green")
+    .transition("Green", "Timer", "Yellow")
+    .transition("Yellow", "Timer", "Red")
+    .transition("Red", "PowerOutage", "Off")
+    .transition("Green", "PowerOutage", "Off")
+    .transition("Yellow", "PowerOutage", "Off")
+    .transition("Off", "PowerRestore", "Red")
     
-  let unreachable = @fsm.validate(builder, "Red")
-  println("Unreachable states: \{unreachable.length()}")
+  let isolated = @fsm.validate(builder, "Red")
+  println("Unreachable states: \{isolated.length()}")
   
   println("Mermaid Diagram:\n" + @fsm.to_mermaid(builder))
 }

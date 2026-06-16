@@ -1,7 +1,7 @@
-/// Validates the FSM configuration to detect unreachable states via BFS.
-/// Returns an array of unreachable state identifiers.
-pub fn validate[S : Hash + Eq, E, Ctx](builder : Builder[S, E, Ctx], initial_state : S) -> Array[S] {
-  let reachable = Map::new()
+/// Validates the FSM configuration to detect isolated states via BFS.
+/// Returns an array of isolated state identifiers.
+pub fn[S : Hash + Eq, E, Ctx] validate(builder : Builder[S, E, Ctx], initial_state : S) -> Array[S] {
+  let reachable = {}
   let queue = [initial_state]
   let mut head = 0
   
@@ -13,7 +13,7 @@ pub fn validate[S : Hash + Eq, E, Ctx](builder : Builder[S, E, Ctx], initial_sta
     
     for t in builder.config.transitions {
       if t.from == current {
-        if not(reachable.contains(t.to)) {
+        if !reachable.contains(t.to) {
           reachable.set(t.to, true)
           queue.push(t.to)
         }
@@ -21,24 +21,24 @@ pub fn validate[S : Hash + Eq, E, Ctx](builder : Builder[S, E, Ctx], initial_sta
     }
   }
   
-  let unreachable = []
+  let isolated = []
   for t in builder.config.transitions {
-    if not(reachable.contains(t.from)) {
+    if !reachable.contains(t.from) {
       // simple linear search to avoid duplicates
       let mut found = false
-      for u in unreachable {
+      for u in isolated {
         if u == t.from { found = true; break }
       }
-      if not(found) { unreachable.push(t.from) }
+      if !found { isolated.push(t.from) }
     }
-    if not(reachable.contains(t.to)) {
+    if !reachable.contains(t.to) {
       let mut found = false
-      for u in unreachable {
+      for u in isolated {
         if u == t.to { found = true; break }
       }
-      if not(found) { unreachable.push(t.to) }
+      if !found { isolated.push(t.to) }
     }
   }
   
-  unreachable
+  isolated
 }

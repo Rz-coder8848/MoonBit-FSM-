@@ -1,9 +1,9 @@
-test "validate unreachable states" {
+test "validate isolated states" {
   let builder : Builder[String, String, Unit] = Builder::new()
-    .transition(from="Idle", event="Start", to="Running")
-    .transition(from="Orphan", event="Foo", to="Bar")
+    .transition("Idle", "Start", "Running")
+    .transition("Orphan", "Foo", "Bar")
   
-  let unreachable = validate(builder, "Idle")
-  // Both Orphan and Bar are unreachable from Idle
-  inspect!(unreachable.length(), content="2")
+  let isolated = validate(builder, "Idle")
+  // Both Orphan and Bar are isolated from Idle
+  inspect(isolated.length(), content="2")
 }

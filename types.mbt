@@ -1,9 +1,9 @@
 /// A guard function that determines if a transition is allowed.
 /// It takes the current state, the event, and the context.
-pub type Guard[S, E, Ctx] (S, E, Ctx) -> Bool
+pub type Guard[S, E, Ctx] = (S, E, Ctx) -> Bool
 
 /// A callback function that executes during a state lifecycle hook.
-pub type Callback[S, E, Ctx] (S, E, Ctx) -> Unit
+pub type Callback[S, E, Ctx] = (S, E, Ctx) -> Unit
 
 /// A transition definition specifying the source state, the event that triggers it,
 /// and the target state it transitions to.

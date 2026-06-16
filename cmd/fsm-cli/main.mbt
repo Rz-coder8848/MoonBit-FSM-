@@ -1,8 +1,8 @@
 fn main {
   println("MoonBit FSM CLI v0.2.0")
   let builder : @fsm.Builder[String, String, Unit] = @fsm.Builder::new()
-    .transition(from="Locked", event="Coin", to="Unlocked")
-    .transition(from="Unlocked", event="Push", to="Locked")
+    .transition("Locked", "Coin", "Unlocked")
+    .transition("Unlocked", "Push", "Locked")
     
   let engine = builder.build("Locked", ())
   println("Initial state: \{engine.state()}")

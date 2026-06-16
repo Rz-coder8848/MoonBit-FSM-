@@ -1,6 +1,6 @@
 /// Exports the FSM configuration as a Mermaid stateDiagram string.
 /// This allows developers to easily visualize their state machines.
-pub fn to_mermaid[S : Show, E : Show, Ctx](builder : Builder[S, E, Ctx]) -> String {
+pub fn[S : Show, E : Show, Ctx] to_mermaid(builder : Builder[S, E, Ctx]) -> String {
   let mut diagram = "stateDiagram-v2\n"
   
   for t in builder.config.transitions {
