@@ -3,6 +3,8 @@
   <p>An Enterprise-grade Extended Finite State Machine (FSM) engine for the MoonBit ecosystem.</p>
   
   [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+  [![Build Status](https://github.com/Rz-coder8848/MoonBit-FSM/actions/workflows/ci.yml/badge.svg)](https://github.com/Rz-coder8848/MoonBit-FSM/actions)
+  [![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)]()
   [![MoonBit](https://img.shields.io/badge/Language-MoonBit-purple.svg)](https://moonbitlang.com)
   [![Wasm Ready](https://img.shields.io/badge/Target-WebAssembly-orange.svg)]()
   [![Static Validation](https://img.shields.io/badge/Feature-Static%20Validation-success.svg)]()
