@@ -13,3 +13,6 @@ The configuration layer used to define states, transitions, and lifecycle hooks.
 
 ### 3. Validator
 The static analysis layer ensuring the state machine has no isolated states or unreachable transitions.
+
+### 4. Context Manager
+An integrated utility used to inject typed environment data into the FSM lifecycle during transition evaluations and hooks.
