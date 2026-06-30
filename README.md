@@ -5,6 +5,7 @@
   [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
   [![Build Status](https://github.com/Rz-coder8848/MoonBit-FSM/actions/workflows/ci.yml/badge.svg)](https://github.com/Rz-coder8848/MoonBit-FSM/actions)
   [![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)]()
+  [![Version](https://img.shields.io/badge/Version-v1.0.0_Official-gold.svg)]()
   [![MoonBit](https://img.shields.io/badge/Language-MoonBit-purple.svg)](https://moonbitlang.com)
   [![Wasm Ready](https://img.shields.io/badge/Target-WebAssembly-orange.svg)]()
   [![Static Validation](https://img.shields.io/badge/Feature-Static%20Validation-success.svg)]()
@@ -13,6 +14,9 @@
 <br/>
 
 ## 🌟 Introduction
+
+> **🏅 [Competition Final Release]** 
+> This is the official **v1.0.0** stable release of MoonBit-FSM. The project has successfully passed the initial review and is now in its finalized production-ready state with 100% test coverage and full MoonBit 0.10.0+ compliance.
 
 State machines are an essential architectural pattern for managing complex business logic, UI component lifecycles, and NPC behaviors in games. `moon-fsm` brings the power of an **Extended State Machine** to the MoonBit ecosystem, allowing you to combine deterministic state transitions with dynamic generic context bindings.
 
